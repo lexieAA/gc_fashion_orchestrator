@@ -35,32 +35,92 @@ public class SecurityControlledAPIs {
 	public static final int SALES_SERVICE = 8082;
 
 	// ------------Requests for Online Stores-----------------------
-	// read all products
-	@GetMapping(path = "/shop/products")
-	public ResponseEntity<String> allProducts() throws SQLException {
-		return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products",
-				String.class);
-	}
+		// read all products
+		@GetMapping(path = "/shop/products")
+		public ResponseEntity<String> allProducts() throws SQLException {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products", String.class);
+		}
 
-//	// read by branch Id
-//	@GetMapping("/lms/public/library/branches/branch/{branchId}")
-//	public ResponseEntity<String> branch2(@PathVariable Long branchId) throws SQLException {
-//		return restTemplate.getForEntity("http://LIBRARY-SERVICE/lms/public/library/branches/branch/" + branchId,
-//				String.class);
-//	}
+		// read by products by Id
+		@GetMapping("/shop/products/{productId}")
+		public ResponseEntity<String> allProductsByIdOnline(@PathVariable Long productId) throws SQLException {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products/" + productId,
+					String.class);
+		}
+		
+		// read all coupons
+		@GetMapping(path = "/shop/coupons")
+		public ResponseEntity<String> allCouponsOnline() throws SQLException {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/coupons", String.class);
+		}
+		
+		// read by transaction by Id
+		@GetMapping("/shop/transactions/{userId}")
+		public ResponseEntity<String> allTransactionsByIdOnline(@PathVariable Long userId) throws SQLException {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions/" + userId,
+					String.class);
+		}
 
-	// update all branches
-//	@PutMapping("/lms/public/library/branches/branch/{branchId}")
-//	public void branch3(@RequestBody LibraryBranch libraryBranch, @PathVariable Long branchId) throws SQLException {
-//		restTemplate.put("http://LIBRARY-SERVICE/lms/public/library/branches/branch/" + branchId, libraryBranch,
-//				String.class);
-//	}
-
-	//
-	//
+		 //update a transaction
+		@PostMapping("/shop/transactions/{userId}")
+		public void updateTransactionsByIdOnline(@RequestBody Transaction transaction, @PathVariable Long userId) throws SQLException {
+			restTemplate.postForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions/" + userId, transaction,
+					String.class);
+		}
+		
+		//create a transaction
+		@PutMapping("/shop/transactions")
+		public void createTransactionsByIdOnline(@RequestBody Transaction transaction) throws SQLException {
+			restTemplate.put("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions", transaction,
+					String.class);
+		}
+		
+		@DeleteMapping("/shop/transactions/{userId}")
+		public void delTransactionsByIdOnline(@RequestBody Transaction transaction, @PathVariable Long userId) throws SQLException {
+			restTemplate.delete("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions/" + userId, transaction,
+					String.class);
+		}
+		
+		// read all categories
+		@GetMapping(path = "/shop/categories")
+		public ResponseEntity<String> allCategoriesOnline() throws SQLException {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/categories", String.class);
+		}
+		
+		// read by products by category Id
+		@GetMapping("/shop/categories/{categoryId}/products")
+		public ResponseEntity<String> CategoriesByIdOnline(@PathVariable Long categoryId) throws SQLException {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/categories/" + categoryId +"/products",
+					String.class);
+		}
+		
+		// read all subcategories
+		@GetMapping(path = "/shop/subcategories")
+		public ResponseEntity<String> allSubcategoriesOnline() throws SQLException {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/subcategories", String.class);
+		}
+		
+		// read all stores
+		@GetMapping(path = "/shop/stores")
+		public ResponseEntity<String> allStoresOnline() throws SQLException {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/stores", String.class);
+		}
+		
+		// read by users by user Id
+		@GetMapping("/shop/account/users/{userId}")
+		public ResponseEntity<String> userByIdOnline(@PathVariable Long userId) throws SQLException {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/account/users/" + userId,
+					String.class);
+		}
+		
+		@PostMapping("shop/account/users/{userId}")
+		public void updateUserByIdOnline(@RequestBody User user, @PathVariable Long userId) throws SQLException {
+			restTemplate.postForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/account/users/" + userId, user,
+					String.class);
+		}
+		
 	// ------------ Requests for Sales --------------------------------
-	//
-	//
+
 
 	// read a transaction by id
 	@GetMapping(path = "/sales/transactions/{id}")
