@@ -1,8 +1,8 @@
-package com.ss.lms.orchestrator;
+package com.smoothstack.gcfashion.orchestrator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+//import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,7 +14,7 @@ public class OrchestratorApplication {
 	}
 	
 	@Bean
-	@LoadBalanced
+	//@LoadBalanced
 	public RestTemplate getRestTeplate() {
 		return new RestTemplate();
 	}
