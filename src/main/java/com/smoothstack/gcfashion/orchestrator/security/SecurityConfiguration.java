@@ -18,12 +18,12 @@ import com.smoothstack.gcfashion.orchestrator.db.UserDAO;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserPrincipalDetailsService userPrincipalDetailsService;
-//    private UserDAO userDao;
+    private UserDAO userDao;
 
-//    public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService, UserDAO userDao) {
-    public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService) {
+    public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService, UserDAO userDao) {
+//    public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService) {
         this.userPrincipalDetailsService = userPrincipalDetailsService;
-//        this.userDao = userDao;
+        this.userDao = userDao;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
-
+        
         return daoAuthenticationProvider;
     }
 

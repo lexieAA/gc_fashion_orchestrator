@@ -20,6 +20,9 @@ public class UserPrincipalDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = this.userDAO.findByUsername(s);
+        
+        System.out.println("READ: " + user.getPassword());
+        
         UserPrincipal userPrincipal = new UserPrincipal(user);
 
         return userPrincipal;

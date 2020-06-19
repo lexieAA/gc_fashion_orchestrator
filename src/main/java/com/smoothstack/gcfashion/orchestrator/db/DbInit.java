@@ -27,6 +27,7 @@ public class DbInit implements CommandLineRunner {
 //      User admin = new User("kim",passwordEncoder.encode("admin123"),"ADMIN","ACCESS_USERS");
 //      User manager = new User("borrower",passwordEncoder.encode("borrower123"),"BORROWER","ACCESS_B1, ACCESS_B2, ACCESS_B3, ACCESS_B4, ACCESS_B5, ACCESS_B6, ACCESS_B7, ACCESS_B8");
 
+      System.out.println("SET: " + dan.getPassword());
       this.userDao.save(dan);
 //      List<User> users = Arrays.asList(dan);
 
