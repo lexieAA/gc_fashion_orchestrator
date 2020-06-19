@@ -64,8 +64,7 @@ public class UserPrincipal implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return true; // set from false to true
 	}
 //
 //    @Override

@@ -17,31 +17,28 @@ import com.smoothstack.gcfashion.orchestrator.db.UserDAO;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-//    private UserPrincipalDetailsService userPrincipalDetailsService;
+    private UserPrincipalDetailsService userPrincipalDetailsService;
 //    private UserDAO userDao;
-//
+
 //    public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService, UserDAO userDao) {
-//        this.userPrincipalDetailsService = userPrincipalDetailsService;
+    public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService) {
+        this.userPrincipalDetailsService = userPrincipalDetailsService;
 //        this.userDao = userDao;
-//    }
-//
+    }
+
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    	auth
-    		.inMemoryAuthentication()
-    		.withUser("admin").password(passwordEncoder().encode("admin123")).roles("ADMIN")
-    		.and()
-    		.withUser("dan").password(passwordEncoder().encode("dan123")).roles("USER");
-    	
-    	
-//        auth.authenticationProvider(authenticationProvider());
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
         	.authorizeRequests()
-        	.anyRequest().authenticated()
+//        	.antMatchers("/gcfashions/shop").permitAll()
+        	.antMatchers("/gcfashions/shop/**").authenticated()
+        	.antMatchers("/gcfashions/shop/**").hasAuthority("ROLE_CUSTOMER")
+//        	.antMatchers("/gcfashions/sales/transactions").hasAnyRole("ADMIN", "MANAGER	")
         	.and()
         	.httpBasic();
 //                // remove csrf and state in session because in jwt we do not need them
@@ -65,14 +62,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .anyRequest().authenticated();
     }
 
-//    @Bean
-//    DaoAuthenticationProvider authenticationProvider(){
-//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-//        daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
-//
-//        return daoAuthenticationProvider;
-//    }
+    @Bean
+    DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
+
+        return daoAuthenticationProvider;
+    }
 
     @Bean
     PasswordEncoder passwordEncoder() {

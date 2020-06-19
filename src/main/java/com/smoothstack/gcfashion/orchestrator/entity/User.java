@@ -17,6 +17,24 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name = "user")
 public class User implements Serializable {
 
+	
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(Long userId, Double cardNo, String username, String password, String role, String fullName,
+			String address) {
+		super();
+		this.userId = userId;
+		this.cardNo = cardNo;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.fullName = fullName;
+		this.address = address;
+	}
+
 	/**
 	 * 
 	 */
