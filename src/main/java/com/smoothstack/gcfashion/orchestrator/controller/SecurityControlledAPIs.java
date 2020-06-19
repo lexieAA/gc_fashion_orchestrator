@@ -16,20 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.smoothstack.gcfashion.orchestrator.entity.Transaction;
-//import com.smoothstack.gcfashion.orchestrator.db.UserDAO;
+import com.smoothstack.gcfashion.orchestrator.db.UserDAO;
 import com.smoothstack.gcfashion.orchestrator.entity.User;
 
 @RestController
 @RequestMapping("/gcfashions")
 public class SecurityControlledAPIs {
-	// private UserDAO userDao;
+	private UserDAO userDao;
 
 	@Autowired
 	RestTemplate restTemplate;
 
-//	public SecurityControlledAPIs(UserDAO userDao) {
-//		this.userDao = userDao;
-//	}
+	public SecurityControlledAPIs(UserDAO userDao) {
+		this.userDao = userDao;
+	}
 
 	public static final int ONLINE_SERVICE = 8081;
 	public static final int SALES_SERVICE = 8082;
@@ -55,31 +55,31 @@ public class SecurityControlledAPIs {
 		}
 		
 		// read by transaction by Id
-		@GetMapping("/shop/transactions/{userId}")
+		@GetMapping("/account/users/{userId}/transactions")
 		public ResponseEntity<String> allTransactionsByIdOnline(@PathVariable Long userId) throws SQLException {
 			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions/" + userId,
 					String.class);
 		}
 
 		 //update a transaction
-		@PostMapping("/shop/transactions/{userId}")
+		@PostMapping("/account/users/{userId}/transactions")
 		public void updateTransactionsByIdOnline(@RequestBody Transaction transaction, @PathVariable Long userId) throws SQLException {
 			restTemplate.postForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions/" + userId, transaction,
 					String.class);
 		}
 		
 		//create a transaction
-		@PutMapping("/shop/transactions")
+		@PutMapping("/account/users/{userId}/transactions")
 		public void createTransactionsByIdOnline(@RequestBody Transaction transaction) throws SQLException {
 			restTemplate.put("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions", transaction,
 					String.class);
 		}
 		
-		@DeleteMapping("/shop/transactions/{userId}")
-		public void delTransactionsByIdOnline(@RequestBody Transaction transaction, @PathVariable Long userId) throws SQLException {
-			restTemplate.delete("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions/" + userId, transaction,
-					String.class);
-		}
+//		@DeleteMapping("users/{userId}/transactions")
+//		public void delTransactionsByIdOnline(@RequestBody Transaction transaction, @PathVariable Long userId) throws SQLException {
+//			restTemplate.delete("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions/" + userId, transaction,
+//					String.class);
+//		}
 		
 		// read all categories
 		@GetMapping(path = "/shop/categories")
@@ -113,9 +113,16 @@ public class SecurityControlledAPIs {
 					String.class);
 		}
 		
-		@PostMapping("shop/account/users/{userId}")
+		@PostMapping("/shop/account/users/{userId}")
 		public void updateUserByIdOnline(@RequestBody User user, @PathVariable Long userId) throws SQLException {
 			restTemplate.postForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/account/users/" + userId, user,
+					String.class);
+		}
+		
+		@PutMapping("/new/account")
+		public void createUserByIdOnline(@RequestBody User user, @PathVariable Long userId) throws SQLException {
+			
+			restTemplate.put("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/account/users", user,
 					String.class);
 		}
 		
@@ -143,7 +150,7 @@ public class SecurityControlledAPIs {
 	}
 
 	// read a transaction by id
-	@DeleteMapping(path = "/sales/transactions")
+	@DeleteMapping(path = "/sales/transactions/{id}")
 	public void deleteTransaction(@PathVariable Long id) {
 		restTemplate.delete("http://localhost:" + SALES_SERVICE + "/gcfashions/sales/transactions/" + id,
 				String.class);
