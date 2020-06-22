@@ -46,12 +46,20 @@ public class SecurityControlledAPIs {
 				String.class);
 	}
 
-	// read by products by Id
+	// read products by Id
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping("/shop/products/{productId}")
 	public ResponseEntity<String> allProductsByIdOnline(@PathVariable Long productId) throws SQLException {
 		return restTemplate.getForEntity(
 				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products/" + productId, String.class);
+	}
+	
+	// search products by string
+	@CrossOrigin(origins = "http://localhost:8080")
+	@GetMapping("/shop/products/like/{productName}")
+	public ResponseEntity<String> searchProducts(@PathVariable String productName) throws SQLException {
+		return restTemplate.getForEntity(
+				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products/like/" + productName, String.class);
 	}
 
 	// read all coupons
