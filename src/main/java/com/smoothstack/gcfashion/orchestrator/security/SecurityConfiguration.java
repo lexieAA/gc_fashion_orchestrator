@@ -46,10 +46,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	        // configure access rules
 	        .antMatchers(HttpMethod.POST, "/login").permitAll()
 	        .antMatchers(HttpMethod.GET, "/gcfashions/shop/**").permitAll()
-	        .antMatchers("/gcfashions/account/**").hasAuthority("ROLE_CUSTOMER")
-	        .antMatchers("/gcfashions/sales/**").hasAnyRole("ADMIN", "MANAGER")
-	        .antMatchers("/gcfashions/accountant/**").hasAnyRole("MANAGER")
-	            .anyRequest().authenticated();
+	        .antMatchers(HttpMethod.POST, "/gcfashions/sales/**").permitAll();
+//	        .antMatchers("/gcfashions/account/**").hasAuthority("ROLE_CUSTOMER")
+//	        .antMatchers("/gcfashions/sales/**").hasAnyRole("ADMIN", "MANAGER")
+//	        .antMatchers("/gcfashions/accountant/**").hasAnyRole("MANAGER")
+//	            .anyRequest().authenticated();
 	}
 
     @Bean
