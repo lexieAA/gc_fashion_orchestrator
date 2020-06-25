@@ -45,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	        .authorizeRequests()
 	        // configure access rules
 	        .antMatchers(HttpMethod.POST, "/login").permitAll()
+	        .antMatchers(HttpMethod.POST, "/gcfashions/user").permitAll()
 	        .antMatchers(HttpMethod.GET, "/gcfashions/shop/**").permitAll()
 	        .antMatchers("/gcfashions/account/**").hasAuthority("ROLE_CUSTOMER")
 	        .antMatchers("/gcfashions/sales/**").hasAnyRole("ADMIN", "MANAGER")
