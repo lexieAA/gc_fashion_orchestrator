@@ -34,7 +34,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		auth.authenticationProvider(authenticationProvider());
 	}
 
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
@@ -68,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		config.addAllowedHeader("*");
 		config.addExposedHeader(HttpHeaders.AUTHORIZATION);
 		config.addAllowedMethod("*");
-		source.registerCorsConfiguration("/Login", config);
+		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
 	}
 
