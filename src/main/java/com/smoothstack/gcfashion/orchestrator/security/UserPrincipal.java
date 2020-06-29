@@ -39,7 +39,12 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.user.getPassword();
+    	try {
+    		return this.user.getPassword();
+    	}catch(Error e) {
+    		return "password get error " + e;
+    	}
+        
     }
 
     @Override
