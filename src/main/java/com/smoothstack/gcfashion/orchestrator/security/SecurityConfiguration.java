@@ -69,6 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		config.addAllowedOrigin("*"); // TODO: lock down before deploying
 		config.addAllowedHeader("*");
 		config.addExposedHeader(HttpHeaders.AUTHORIZATION);
+		config.addExposedHeader("UserId");
 		config.addAllowedMethod("*");
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
