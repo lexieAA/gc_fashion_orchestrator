@@ -45,11 +45,11 @@ public class DbInit implements CommandLineRunner {
   public void run(String... args) {
 	  
       // Create users
-      User dan = new User(1L, 1234567890123456d, "jdoe",passwordEncoder.encode("123"),"customer","John Doe","Fairfax, VA");
+//      User dan = new User(2L, 1234567890123456d, "Matt",passwordEncoder.encode("123"),"management","Matt","nowhere");
 //      User admin = new User("kim",passwordEncoder.encode("admin123"),"ADMIN","ACCESS_USERS");
 //      User manager = new User("borrower",passwordEncoder.encode("borrower123"),"BORROWER","ACCESS_B1, ACCESS_B2, ACCESS_B3, ACCESS_B4, ACCESS_B5, ACCESS_B6, ACCESS_B7, ACCESS_B8");
 
-      this.uDAO.save(dan);
+//     this.uDAO.save(dan);
 //      List<User> users = Arrays.asList(dan);
 
       // Save to database

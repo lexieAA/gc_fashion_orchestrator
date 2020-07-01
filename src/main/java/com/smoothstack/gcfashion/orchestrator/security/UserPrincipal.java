@@ -36,6 +36,10 @@ public class UserPrincipal implements UserDetails {
 
         return authorities;
     }
+    
+    public String getUserId() {
+    	return Long.toString(this.user.getUserId());  	
+    }
 
     @Override
     public String getPassword() {
