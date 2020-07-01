@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.smoothstack.gcfashion.orchestrator.entity.Transaction;
+import com.smoothstack.gcfashion.orchestrator.db.DbInit;
 import com.smoothstack.gcfashion.orchestrator.db.UserDAO;
 import com.smoothstack.gcfashion.orchestrator.entity.User;
 
@@ -29,6 +31,9 @@ public class SecurityControlledAPIs {
 
 	@Autowired
 	RestTemplate restTemplate;
+	
+	@Autowired
+	DbInit dbInit;
 
 	public SecurityControlledAPIs(UserDAO userDao) {
 		this.userDao = userDao;
@@ -58,7 +63,7 @@ public class SecurityControlledAPIs {
 	// search products by string
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping("/shop/products/like/{productName}")
-	public ResponseEntity<String> searchProducts(@PathVariable String productName) throws SQLException {
+	public ResponseEntity<String> searchProducts(@PathVariable String productName){
 		return restTemplate.getForEntity(
 				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products/like/" + productName, String.class);
 	}
@@ -136,10 +141,10 @@ public class SecurityControlledAPIs {
 
 	// read by users by user Id
 	@CrossOrigin(origins = "http://localhost:8080")
-	@GetMapping("/shop/account/users/{userId}")
+	@GetMapping("/shop/account/users/{userId}/transactions")
 	public ResponseEntity<String> userByIdOnline(@PathVariable Long userId) throws SQLException {
 		return restTemplate.getForEntity(
-				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/account/users/" + userId, String.class);
+				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/account/users/" + userId +"/transactions", String.class);
 	}
 
 	@CrossOrigin(origins = "http://localhost:8080")
@@ -149,10 +154,10 @@ public class SecurityControlledAPIs {
 				user, String.class);
 	}
 
-	@CrossOrigin(origins = "http://localhost:8080")
-	@PutMapping("/new/account")
-	public void createUserByIdOnline(@RequestBody User user, @PathVariable Long userId) throws SQLException {
-		restTemplate.put("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/account/users", user, String.class);
+//	@CrossOrigin(origins = "http://localhost:8080")
+	@PostMapping("/user")
+	public void createUserByIdOnline(@RequestBody User user) throws SQLException {
+		dbInit.saveUser(user);
 	}
 
 	// ------------ Requests for Sales --------------------------------
