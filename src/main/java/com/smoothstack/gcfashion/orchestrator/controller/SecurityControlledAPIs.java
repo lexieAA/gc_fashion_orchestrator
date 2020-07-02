@@ -84,6 +84,15 @@ public class SecurityControlledAPIs {
 				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId + "/transactions/",
 				String.class);
 	}
+	
+	// read by transaction by Id
+		@CrossOrigin(origins = "http://localhost:8080")
+		@GetMapping("/account/users/{userId}/role")
+		public ResponseEntity<String> roleByIdOnline(@PathVariable Long userId) throws SQLException {
+			return restTemplate.getForEntity(
+					"http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId + "/role/",
+					String.class);
+		}
 
 	// update a transaction
 	@CrossOrigin(origins = "http://localhost:8080")
@@ -141,16 +150,16 @@ public class SecurityControlledAPIs {
 
 	// read by users by user Id
 	@CrossOrigin(origins = "http://localhost:8080")
-	@GetMapping("/shop/account/users/{userId}/transactions")
+	@GetMapping("/account/users/{userId}/transactions")
 	public ResponseEntity<String> userByIdOnline(@PathVariable Long userId) throws SQLException {
 		return restTemplate.getForEntity(
-				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/account/users/" + userId +"/transactions", String.class);
+				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId +"/transactions", String.class);
 	}
 
 	@CrossOrigin(origins = "http://localhost:8080")
-	@PostMapping("/shop/account/users/{userId}")
+	@PostMapping("/account/users/{userId}")
 	public void updateUserByIdOnline(@RequestBody User user, @PathVariable Long userId) throws SQLException {
-		restTemplate.postForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/account/users/" + userId,
+		restTemplate.postForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId,
 				user, String.class);
 	}
 
