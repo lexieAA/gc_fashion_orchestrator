@@ -31,7 +31,7 @@ public class SecurityControlledAPIs {
 
 	@Autowired
 	RestTemplate restTemplate;
-	
+
 	@Autowired
 	DbInit dbInit;
 
@@ -47,23 +47,33 @@ public class SecurityControlledAPIs {
 	// read all products
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping(path = "/shop/products")
-	public ResponseEntity<String> allProducts() throws SQLException {
-		return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products",
-				String.class);
+	public ResponseEntity<String> allProducts() {
+		try {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products",
+					String.class);
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 
 	// read products by Id
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping("/shop/products/{productId}")
-	public ResponseEntity<String> allProductsByIdOnline(@PathVariable Long productId) throws SQLException {
-		return restTemplate.getForEntity(
-				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products/" + productId, String.class);
+	public ResponseEntity<String> allProductsByIdOnline(@PathVariable Long productId) {
+		try {
+			return restTemplate.getForEntity(
+					"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products/" + productId, String.class);
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 
 	// search products by string
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping("/shop/products/like/{productName}")
-	public ResponseEntity<String> searchProducts(@PathVariable String productName){
+	public ResponseEntity<String> searchProducts(@PathVariable String productName) {
 		return restTemplate.getForEntity(
 				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products/like/" + productName, String.class);
 	}
@@ -108,27 +118,41 @@ public class SecurityControlledAPIs {
 	// read all categories
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping(path = "/shop/categories")
-	public ResponseEntity<String> allCategoriesOnline() throws SQLException {
-		return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/categories",
-				String.class);
+	public ResponseEntity<String> allCategoriesOnline() {
+		try {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/categories",
+					String.class);
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 
 	// read by products by category Id
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping("/shop/categories/{categoryId}/products")
-	public ResponseEntity<String> CategoriesByIdOnline(@PathVariable Long categoryId) throws SQLException {
-		return restTemplate.getForEntity(
-				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/categories/" + categoryId + "/products",
-				String.class);
+	public ResponseEntity<String> CategoriesByIdOnline(@PathVariable Long categoryId) {
+		try {
+			return restTemplate.getForEntity(
+					"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/categories/" + categoryId + "/products",
+					String.class);
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 
 	// read all subcategories
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping(path = "/shop/categories/{categoryId}/subcategories/{subcategoryId}")
-	public ResponseEntity<String> subcategoriesOnline(@PathVariable Long categoryId, @PathVariable Long subcategoryId)
-			throws SQLException {
-		return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/categories/"
-				+ categoryId + "/subcategories/" + subcategoryId, String.class);
+	public ResponseEntity<String> subcategoriesOnline(@PathVariable Long categoryId, @PathVariable Long subcategoryId) {
+		try {
+			return restTemplate.getForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/categories/"
+					+ categoryId + "/subcategories/" + subcategoryId, String.class);
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 
 	// read all stores
@@ -144,7 +168,8 @@ public class SecurityControlledAPIs {
 	@GetMapping("/shop/account/users/{userId}/transactions")
 	public ResponseEntity<String> userByIdOnline(@PathVariable Long userId) throws SQLException {
 		return restTemplate.getForEntity(
-				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/account/users/" + userId +"/transactions", String.class);
+				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/account/users/" + userId + "/transactions",
+				String.class);
 	}
 
 	@CrossOrigin(origins = "http://localhost:8080")
@@ -174,9 +199,14 @@ public class SecurityControlledAPIs {
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping(path = "/shop/transactions/open/userid/{userId}")
 	public ResponseEntity<String> getOpenTransactionByUserId(@PathVariable Long userId) {
-		return restTemplate.getForEntity(
-				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions/open/userid/" + userId,
-				String.class);
+		try {
+			return restTemplate.getForEntity(
+					"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions/open/userid/" + userId,
+					String.class);
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 
 	// read list of items in cart by userId
@@ -192,9 +222,13 @@ public class SecurityControlledAPIs {
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping(path = "/shop/transactions/open/coupon/userid/{userId}")
 	public ResponseEntity<String> getCouponByUserId(@PathVariable Long userId) {
-		return restTemplate.getForEntity(
-				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions/open/coupon/userid/" + userId,
-				String.class);
+		try {
+			return restTemplate.getForEntity(
+					"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/transactions/open/coupon/userid/" + userId,
+					String.class);
+		} catch (Exception e) {
+			return ResponseEntity.noContent().build();
+		}
 	}
 
 	// update a transaction
