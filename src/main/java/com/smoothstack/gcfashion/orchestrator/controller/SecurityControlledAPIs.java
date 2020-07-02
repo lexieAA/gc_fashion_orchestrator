@@ -150,7 +150,7 @@ public class SecurityControlledAPIs {
 
 	// read by users by user Id
 	@CrossOrigin(origins = "http://localhost:8080")
-	@GetMapping("/account/users/{userId}/transactions")
+	@GetMapping("/account/transactions/users/{userId}")
 	public ResponseEntity<String> userByIdOnline(@PathVariable Long userId) throws SQLException {
 		return restTemplate.getForEntity(
 				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId +"/transactions", String.class);
