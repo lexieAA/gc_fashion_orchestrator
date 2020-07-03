@@ -70,6 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		config.addAllowedHeader("*");
 		config.addExposedHeader(HttpHeaders.AUTHORIZATION);
 		config.addExposedHeader("UserId");
+		config.addExposedHeader("UserRole");
 		config.addAllowedMethod("*");
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
