@@ -48,8 +48,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.PUT, "/gcfashions/shop/**").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/gcfashions/shop/**").permitAll()
 				.antMatchers("/gcfashions/account/**").hasAuthority("ROLE_CUSTOMER")
-				.antMatchers("/gcfashions/sales/**").hasAnyRole("ROLE_ADMIN", "ROLE_SALES")
-				.antMatchers("/gcfashions/accountant/**").hasAnyRole("ROLE_SALES").anyRequest().authenticated();
+				.antMatchers("/gcfashions/sales/**").hasAuthority("ROLE_SALES")
+				.antMatchers("/gcfashions/accountant/**").hasAuthority("ROLE_MANAGEMENT").anyRequest().authenticated();
 	}
 
 	@Bean
