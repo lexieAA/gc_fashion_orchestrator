@@ -178,12 +178,21 @@ public class SecurityControlledAPIs {
 			return restTemplate.getForEntity("http://localhost:" + SALES_SERVICE + "/gcfashions/sales/users/" + id,
 					String.class);
 	}
-	// read a transaction by id
+		
+	// read a inventory by id
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping(path = "/sales/inventory/{id}")
-	public ResponseEntity<String> getInvetoryById(@PathVariable Long id) {
+	public ResponseEntity<String> getInventoryById(@PathVariable Long id) {
 		return restTemplate.getForEntity("http://localhost:" + SALES_SERVICE + "/gcfashions/sales/inventory/" + id,
 				String.class);
+	}
+	
+	// read a product by id
+		@CrossOrigin(origins = "http://localhost:8080")
+		@GetMapping(path = "/sales/products/{id}")
+		public ResponseEntity<String> getProductById(@PathVariable Long id) {
+			return restTemplate.getForEntity("http://localhost:" + SALES_SERVICE + "/gcfashions/sales/products/" + id,
+					String.class);
 	}
 
 	// read open transactions for a userId
