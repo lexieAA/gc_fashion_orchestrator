@@ -31,7 +31,7 @@ public class SecurityControlledAPIs {
 
 	@Autowired
 	RestTemplate restTemplate;
-	
+
 	@Autowired
 	DbInit dbInit;
 
@@ -63,7 +63,7 @@ public class SecurityControlledAPIs {
 	// search products by string
 	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping("/shop/products/like/{productName}")
-	public ResponseEntity<String> searchProducts(@PathVariable String productName){
+	public ResponseEntity<String> searchProducts(@PathVariable String productName) {
 		return restTemplate.getForEntity(
 				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/shop/products/like/" + productName, String.class);
 	}
@@ -84,15 +84,14 @@ public class SecurityControlledAPIs {
 				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId + "/transactions/",
 				String.class);
 	}
-	
+
 	// read by transaction by Id
-		@CrossOrigin(origins = "http://localhost:8080")
-		@GetMapping("/account/users/{userId}/role")
-		public ResponseEntity<String> roleByIdOnline(@PathVariable Long userId) throws SQLException {
-			return restTemplate.getForEntity(
-					"http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId + "/role/",
-					String.class);
-		}
+	@CrossOrigin(origins = "http://localhost:8080")
+	@GetMapping("/account/users/{userId}/role")
+	public ResponseEntity<String> roleByIdOnline(@PathVariable Long userId) throws SQLException {
+		return restTemplate.getForEntity(
+				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId + "/role/", String.class);
+	}
 
 	// update a transaction
 	@CrossOrigin(origins = "http://localhost:8080")
@@ -153,14 +152,15 @@ public class SecurityControlledAPIs {
 	@GetMapping("/account/transactions/users/{userId}")
 	public ResponseEntity<String> userByIdOnline(@PathVariable Long userId) throws SQLException {
 		return restTemplate.getForEntity(
-				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId +"/transactions", String.class);
+				"http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId + "/transactions",
+				String.class);
 	}
 
 	@CrossOrigin(origins = "http://localhost:8080")
 	@PostMapping("/account/users/{userId}")
 	public void updateUserByIdOnline(@RequestBody User user, @PathVariable Long userId) throws SQLException {
-		restTemplate.postForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId,
-				user, String.class);
+		restTemplate.postForEntity("http://localhost:" + ONLINE_SERVICE + "/gcfashions/account/users/" + userId, user,
+				String.class);
 	}
 
 //	@CrossOrigin(origins = "http://localhost:8080")
@@ -170,6 +170,43 @@ public class SecurityControlledAPIs {
 	}
 
 	// ------------ Requests for Sales --------------------------------
+
+	// get all transactions with open status
+	@CrossOrigin(origins = "http://localhost:8080")
+	@GetMapping(path = "/sales/transactions/complete")
+	public ResponseEntity<String> getAllCompleteTransactions() {
+		return restTemplate.getForEntity(
+				"http://localhost:" + SALES_SERVICE + "/gcfashions/sales/transactions/complete", String.class);
+	}
+
+	// get all transactions with open status
+	@CrossOrigin(origins = "http://localhost:8080")
+	@GetMapping(path = "/sales/transactions/complete/like/{transactionId}")
+	public ResponseEntity<String> getAllOpenTransactionsLike(@PathVariable String transactionId) {
+		
+		Long t;
+		
+		try {
+			t = Long.valueOf(transactionId);
+			return restTemplate.getForEntity(
+					"http://localhost:" + SALES_SERVICE + "/gcfashions/sales/transactions/complete/like/" + t,
+					String.class);
+		} catch (Exception e) {
+			System.out.println("No Long value");
+			return ResponseEntity.noContent().build(); 
+		}
+		
+	}
+
+	// get all transactions with open status
+	@CrossOrigin(origins = "http://localhost:8080")
+	@PutMapping(path = "sales/transactions/refund")
+	public void refund(@RequestBody Map<String, Object> values) {
+		restTemplate.put("http://localhost:" + SALES_SERVICE + "/gcfashions/sales/transactions/refund", values,
+				String.class);
+	}
+
+	// ------------ Requests for Shop --------------------------------
 
 	// read a transaction by id
 	@CrossOrigin(origins = "http://localhost:8080")

@@ -43,13 +43,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.addFilter(new JwtAuthenticationFilter(authenticationManager()))
 				.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userDao)).authorizeRequests()
 				// configure access rules
-				.antMatchers(HttpMethod.POST, "/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/gcfashions/shop/**").permitAll()
-				.antMatchers(HttpMethod.PUT, "/gcfashions/shop/**").permitAll()
-				.antMatchers(HttpMethod.DELETE, "/gcfashions/shop/**").permitAll()
-				.antMatchers("/gcfashions/account/**").hasAuthority("ROLE_CUSTOMER")
-				.antMatchers("/gcfashions/sales/**").hasAnyRole("ROLE_ADMIN", "ROLE_SALES")
-				.antMatchers("/gcfashions/accountant/**").hasAnyRole("ROLE_SALES").anyRequest().authenticated();
+				.antMatchers(HttpMethod.POST, "/**").permitAll();
+//				.antMatchers(HttpMethod.GET, "/gcfashions/shop/**").permitAll()
+//				.antMatchers(HttpMethod.PUT, "/gcfashions/shop/**").permitAll()
+//				.antMatchers(HttpMethod.DELETE, "/gcfashions/shop/**").permitAll()
+//				.antMatchers("/gcfashions/account/**").hasAuthority("ROLE_CUSTOMER")
+//				.antMatchers("/gcfashions/sales/**").hasAnyRole("ROLE_ADMIN", "ROLE_SALES")
+//				.antMatchers("/gcfashions/accountant/**").hasAnyRole("ROLE_SALES").anyRequest().authenticated();
 	}
 
 	@Bean
