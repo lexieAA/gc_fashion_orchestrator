@@ -339,5 +339,45 @@ public class SecurityControlledAPIs {
 		return restTemplate.getForEntity("http://localhost:" + ACCOUNT_SERVICE + "/accountant/reports/taxes",
 				String.class);
 	}
+	
+	@GetMapping(path = "/accountant/reports/salesbycat")
+	@CrossOrigin(origins = "http://localhost:8080")
+	public ResponseEntity<String> salesbycat() {
+		return restTemplate.getForEntity("http://localhost:" + ACCOUNT_SERVICE + "/accountant/reports/salesbycat", String.class);
+	}
+
+	@GetMapping(path = "/accountant/reports/totalsales")
+	@CrossOrigin(origins = "http://localhost:8080")
+	public ResponseEntity<String> totalsales() {
+		return restTemplate.getForEntity("http://localhost:" + ACCOUNT_SERVICE + "/accountant/reports/totalsales",
+				String.class);
+	}
+
+	@GetMapping(path = "/accountant/reports/totaltaxes")
+	@CrossOrigin(origins = "http://localhost:8080")
+	public ResponseEntity<String> totaltaxes() {
+		return restTemplate.getForEntity("http://localhost:" + ACCOUNT_SERVICE + "/accountant/reports/totaltaxes",
+				String.class);
+	}
+	
+	@GetMapping(path = "/accountant/reports/salesperday")
+	@CrossOrigin(origins = "http://localhost:8080")
+	public ResponseEntity<String> salesperday() {
+		return restTemplate.getForEntity("http://localhost:" + ACCOUNT_SERVICE + "/accountant/reports/salesperday", String.class);
+	}
+
+	@GetMapping(path = "/accountant/reports/salespertrans")
+	@CrossOrigin(origins = "http://localhost:8080")
+	public ResponseEntity<String> salespertrans() {
+		return restTemplate.getForEntity("http://localhost:" + ACCOUNT_SERVICE + "/accountant/reports/salespertrans",
+				String.class);
+	}
+
+	@GetMapping(path = "/accountant/reports/volperloc")
+	@CrossOrigin(origins = "http://localhost:8080")
+	public ResponseEntity<String> volperloc() {
+		return restTemplate.getForEntity("http://localhost:" + ACCOUNT_SERVICE + "/accountant/reports/volperloc",
+				String.class);
+	}
 
 }
