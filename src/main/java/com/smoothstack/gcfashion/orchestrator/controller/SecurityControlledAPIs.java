@@ -39,7 +39,7 @@ public class SecurityControlledAPIs {
 	public static final String ONLINE_SERVICE = "http://ec2-18-191-27-130.us-east-2.compute.amazonaws.com";
 	public static final String SALES_SERVICE = "http://ec2-18-219-254-63.us-east-2.compute.amazonaws.com";
 	public static final String ACCOUNT_SERVICE = "http://ec2-18-219-109-245.us-east-2.compute.amazonaws.com";
-	public static final String ANGULAR_APP = "http://app-location";
+	public static final String ANGULAR_APP = "http://gcfashion.s3-website-us-east-1.amazonaws.com";
 
 	// ------------Requests for Online Stores-----------------------
 	// read all products
