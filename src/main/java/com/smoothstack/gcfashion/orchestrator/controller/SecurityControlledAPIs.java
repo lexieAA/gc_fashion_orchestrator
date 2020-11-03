@@ -36,7 +36,7 @@ public class SecurityControlledAPIs {
 	}
 
 	public static final String ONLINE_SERVICE = "http://ec2-18-191-27-130.us-east-2.compute.amazonaws.com:8081";
-	public static final String SALES_SERVICE = "http://ec2-18-219-254-63.us-east-2.compute.amazonaws.com:8082";
+	public static final String SALES_SERVICE = "http://ec2-3-21-229-19.us-east-2.compute.amazonaws.com:8082";
 	public static final String ACCOUNTANT_SERVICE = "http://ec2-18-219-109-245.us-east-2.compute.amazonaws.com:8083";
 	public static final String ANGULAR_APP = "http://gcfashion.s3-website-us-east-1.amazonaws.com";
 	public static final String ANGULAR_APP_LOCAL = "http://localhost:8080";
